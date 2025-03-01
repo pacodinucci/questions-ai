@@ -22,42 +22,42 @@ const interviewQuestions = [
     question: "¿Contra qué equipo hizo su primer gol?",
     systemAnswer: "Albacete.",
   },
-  //   {
-  //     id: 4,
-  //     question: "¿En qué año debutó profesionalmente con el FC Barcelona?",
-  //     systemAnswer: "En 2004.",
-  //   },
-  //   {
-  //     id: 5,
-  //     question: "¿Cuántos Balones de Oro ha ganado Messi?",
-  //     systemAnswer: "8 Balones de Oro.",
-  //   },
-  //   {
-  //     id: 6,
-  //     question:
-  //       "¿Cómo se llama el club de Argentina donde Messi jugó en su infancia?",
-  //     systemAnswer: "Newell's Old Boys.",
-  //   },
-  //   {
-  //     id: 7,
-  //     question: "¿En qué año ganó su primer Balón de Oro?",
-  //     systemAnswer: "En 2009.",
-  //   },
-  //   {
-  //     id: 8,
-  //     question: "¿En qué Copa América ganó su primer título con Argentina?",
-  //     systemAnswer: "Copa América 2021.",
-  //   },
-  //   {
-  //     id: 9,
-  //     question: "¿Cuántos goles ha marcado Messi con la selección argentina?",
-  //     systemAnswer: "112 goles.",
-  //   },
-  //   {
-  //     id: 10,
-  //     question: "¿Cómo se llama la mamá de Messi?",
-  //     systemAnswer: "Nilda",
-  //   },
+  {
+    id: 4,
+    question: "¿En qué año debutó profesionalmente con el FC Barcelona?",
+    systemAnswer: "En 2004.",
+  },
+  {
+    id: 5,
+    question: "¿Cuántos Balones de Oro ha ganado Messi?",
+    systemAnswer: "8 Balones de Oro.",
+  },
+  {
+    id: 6,
+    question:
+      "¿Cómo se llama el club de Argentina donde Messi jugó en su infancia?",
+    systemAnswer: "Newell's Old Boys.",
+  },
+  {
+    id: 7,
+    question: "¿En qué año ganó su primer Balón de Oro?",
+    systemAnswer: "En 2009.",
+  },
+  {
+    id: 8,
+    question: "¿En qué Copa América ganó su primer título con Argentina?",
+    systemAnswer: "Copa América 2021.",
+  },
+  {
+    id: 9,
+    question: "¿Cuántos goles ha marcado Messi con la selección argentina?",
+    systemAnswer: "112 goles.",
+  },
+  {
+    id: 10,
+    question: "¿Cómo se llama la mamá de Messi?",
+    systemAnswer: "Nilda",
+  },
 ];
 
 const VirtualInterview = () => {
