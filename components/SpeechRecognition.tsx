@@ -22,42 +22,42 @@ const interviewQuestions = [
     question: "¿Contra qué equipo hizo su primer gol?",
     systemAnswer: "Albacete.",
   },
-  {
-    id: 4,
-    question: "¿En qué año debutó profesionalmente con el FC Barcelona?",
-    systemAnswer: "En 2004.",
-  },
-  {
-    id: 5,
-    question: "¿Cuántos Balones de Oro ha ganado Messi?",
-    systemAnswer: "8 Balones de Oro.",
-  },
-  {
-    id: 6,
-    question:
-      "¿Cómo se llama el club de Argentina donde Messi jugó en su infancia?",
-    systemAnswer: "Newell's Old Boys.",
-  },
-  {
-    id: 7,
-    question: "¿En qué año ganó su primer Balón de Oro?",
-    systemAnswer: "En 2009.",
-  },
-  {
-    id: 8,
-    question: "¿En qué Copa América ganó su primer título con Argentina?",
-    systemAnswer: "Copa América 2021.",
-  },
-  {
-    id: 9,
-    question: "¿Cuántos goles ha marcado Messi con la selección argentina?",
-    systemAnswer: "112 goles.",
-  },
-  {
-    id: 10,
-    question: "¿Cómo se llama la mamá de Messi?",
-    systemAnswer: "Nilda",
-  },
+  //   {
+  //     id: 4,
+  //     question: "¿En qué año debutó profesionalmente con el FC Barcelona?",
+  //     systemAnswer: "En 2004.",
+  //   },
+  //   {
+  //     id: 5,
+  //     question: "¿Cuántos Balones de Oro ha ganado Messi?",
+  //     systemAnswer: "8 Balones de Oro.",
+  //   },
+  //   {
+  //     id: 6,
+  //     question:
+  //       "¿Cómo se llama el club de Argentina donde Messi jugó en su infancia?",
+  //     systemAnswer: "Newell's Old Boys.",
+  //   },
+  //   {
+  //     id: 7,
+  //     question: "¿En qué año ganó su primer Balón de Oro?",
+  //     systemAnswer: "En 2009.",
+  //   },
+  //   {
+  //     id: 8,
+  //     question: "¿En qué Copa América ganó su primer título con Argentina?",
+  //     systemAnswer: "Copa América 2021.",
+  //   },
+  //   {
+  //     id: 9,
+  //     question: "¿Cuántos goles ha marcado Messi con la selección argentina?",
+  //     systemAnswer: "112 goles.",
+  //   },
+  //   {
+  //     id: 10,
+  //     question: "¿Cómo se llama la mamá de Messi?",
+  //     systemAnswer: "Nilda",
+  //   },
 ];
 
 const VirtualInterview = () => {
@@ -80,6 +80,8 @@ const VirtualInterview = () => {
       score: number;
     }[]
   >([]);
+  const [interviewFinished, setInterviewFinished] = useState<boolean>(false);
+  const [finalScore, setFinalScore] = useState<number>(0);
 
   useEffect(() => {
     const startCamera = async () => {
@@ -158,7 +160,19 @@ const VirtualInterview = () => {
       setFinalTranscript(null);
       resetTranscript();
     } else {
-      console.log("Entrevista finalizada, respuestas:", responses);
+      console.log("✅ Entrevista finalizada, respuestas:", responses);
+
+      // Calculamos el promedio de los puntajes obtenidos
+      const totalScore = responses.reduce(
+        (acc, response) => acc + response.score,
+        0
+      );
+      const averageScore =
+        responses.length > 0 ? totalScore / responses.length : 0;
+
+      // Evaluamos si es aprobado o desaprobado y actualizamos el estado
+      setInterviewFinished(true);
+      setFinalScore(averageScore);
     }
   };
 
@@ -197,7 +211,37 @@ const VirtualInterview = () => {
 
       {/* Entrevista */}
       <div className="md:w-1/2 flex flex-col items-center justify-center p-8">
-        {currentQuestionIndex < interviewQuestions.length ? (
+        {interviewFinished ? (
+          <div className="mt-4 bg-gray-800 p-4 rounded-lg text-center">
+            <p className="text-blue-400 text-lg font-bold">
+              ✅ Entrevista Finalizada
+            </p>
+
+            {/* Cálculo del puntaje promedio */}
+            <p
+              className={`text-2xl font-bold mt-4 ${
+                finalScore >= 0.6 ? "text-green-400" : "text-red-400"
+              }`}
+            >
+              {finalScore >= 0.6 ? "🎉 APROBADO ✅" : "❌ DESAPROBADO ❌"}
+            </p>
+            <p className="text-white mt-2">
+              <strong>Promedio:</strong> {finalScore.toFixed(2)}
+            </p>
+
+            {/* Mostrar respuestas detalladas */}
+            <div className="mt-4 text-left">
+              {responses.map((response, index) => (
+                <p key={index} className="text-white mt-2">
+                  <strong>{response.pregunta}:</strong> {response.userAnswer}
+                  <br />✅ Correcta: {response.systemAnswer}
+                  <br />
+                  🔹 Similitud: {response.score}
+                </p>
+              ))}
+            </div>
+          </div>
+        ) : (
           <>
             <p className="text-xl font-bold text-white mb-4">
               {interviewQuestions[currentQuestionIndex].question}
@@ -235,25 +279,13 @@ const VirtualInterview = () => {
                   onClick={nextQuestion}
                   className="mt-4 bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded"
                 >
-                  ➡️ Siguiente Pregunta
+                  {currentQuestionIndex < interviewQuestions.length - 1
+                    ? "➡️ Siguiente Pregunta"
+                    : "✅ Finalizar"}
                 </button>
               </div>
             )}
           </>
-        ) : (
-          <div className="mt-4 bg-gray-800 p-4 rounded-lg">
-            <p className="text-blue-400 text-lg font-bold">
-              ✅ Entrevista Finalizada
-            </p>
-            {responses.map((response, index) => (
-              <p key={index} className="text-white mt-2">
-                <strong>{response.pregunta}:</strong> {response.userAnswer}
-                <br />✅ Correcta: {response.systemAnswer}
-                <br />
-                🔹 Similitud: {response.score}
-              </p>
-            ))}
-          </div>
         )}
       </div>
     </div>
