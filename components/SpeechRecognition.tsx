@@ -199,7 +199,7 @@ const VirtualInterview = () => {
   return (
     <div className="flex flex-col md:flex-row h-screen w-full bg-gray-900 text-white">
       {/* Video */}
-      <div className="md:w-1/2 md:h-screen flex">
+      <div className="md:w-1/2 h-[40dvh] md:h-screen flex">
         <video
           ref={videoRef}
           autoPlay
